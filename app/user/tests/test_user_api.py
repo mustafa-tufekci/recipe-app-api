@@ -76,7 +76,7 @@ class PublicUserApiTests(TestCase):
 
         payload = {
             'email': user_details['email'],
-            'password': user_details['passowrd'],
+            'password': user_details['password'],
         }
         res = self.client.post(TOKEN_URL, payload)
 
@@ -98,4 +98,5 @@ class PublicUserApiTests(TestCase):
         payload = {'email':'test@example.com', 'password': ''}
         res = self.client.post(TOKEN_URL, payload)
 
-        self.assertNotIn(res.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertNotIn('token', res.data)
+        self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
